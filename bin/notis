@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'methadone'
+require 'open3'
+require 'terminal-notifier'
+require 'notis.rb'
+
+include Process
+
+class App
+  include Methadone::Main
+
+  main do | user_command |
+    begin
+      unless user_command   # if user pipes a command to the Notis standard input stream (instead of using Notis as primary command)
+        unless options["m"] # mute original command std out switch
+          #print the original command's std out stream
+          puts ARGF.read
+        end
+        Notis.runit("terminal-notifier -title Notis -message 'The piped process is complete.'")
+        exit 0
+      end
+      # Else, run the command passed as the argument to Notis
+      thecommand = Notis.runit("#{user_command}")
+      # If command returned exit code 0, then echo the std output from the command
+      puts("#{thecommand}")
+      # and then launch the Mac OSX notification that the process completed
+      if user_command.length > 20
+        user_command = user_command[0..19] + " ..."
+      end
+      Notis.runit("terminal-notifier -title Notis -message '#{user_command} completed successfully.'")
+
+      # TODO: allow user to specify the message
+      # TODO: ring bell with -b switch
+      # TODO: handle exit status 1 in original command with appropriate message to user
+    end
+
+  end #end main
+
+  description "Launch a Mac OSX notification based upon the exit status or standard output of a previous command"
+
+  # Switches:
+  on("--bell","-b","Provide an audio alert with notification")
+  on("--mute","-m","Mute standard output from running process")
+
+  # Optional argument
+   arg :user_command, :optional
+
+  version Notis::VERSION
+
+  begin
+    go!
+  rescue => e
+    STDERR.puts("There was an error with Notis.")
+    STDERR.puts e.message
+    exit 1
+  end
+end
