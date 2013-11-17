@@ -6,8 +6,6 @@ require 'open3'
 require 'terminal-notifier'
 require 'notis.rb'
 
-include Process
-
 class App
   include Methadone::Main
 
