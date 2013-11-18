@@ -1,4 +1,4 @@
-# Notis
+# Notis [![Gem Version](https://badge.fury.io/rb/notis.png)](http://badge.fury.io/rb/notis)
 ### Mac OSX Command Line Application Notifier
 
 notis is a Mac OSX utility that allows you to display a standard OSX toast message notification at the completion of a long-running command with the option to emit an audio signal.
