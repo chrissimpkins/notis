@@ -11,32 +11,45 @@ class App
 
   main do | user_command |
     begin
+      # STD IN BLOCK
       unless user_command   # if user pipes a command to the Notis standard input stream (instead of using Notis as primary command)
         unless options["m"] # mute original command std out switch
           #print the original command's std out stream
           puts ARGF.read
         end
+        if options["b"] # ring bell switch
+          Notis.runit("terminal-notifier -sound default -title Notis -message 'The piped process is complete.'")
+          exit 0
+        end
         Notis.runit("terminal-notifier -title Notis -message 'The piped process is complete.'")
         exit 0
       end
-      # Else, run the command passed as the argument to Notis
+      # END STD IN BLOCK
+
+      # MAIN COMMAND BLOCK
       thecommand = Notis.runit("#{user_command}")
-      # If command returned exit code 0, then echo the std output from the command
-      puts("#{thecommand}")
-      # and then launch the Mac OSX notification that the process completed
+      # If command returned exit code 0, then echo the std output from the command unless mute switch
+      unless options["m"]
+        puts("#{thecommand}")
+      end
+      # decrease length of the string for display if > 20 char
       if user_command.length > 20
-        user_command = user_command[0..19] + " ..."
+        user_command = user_command[0..19] + "... "
+      end
+      # and then launch the Mac OSX notification that the process completed
+      if options["b"] # ring bell switch
+        Notis.runit("terminal-notifier -title Notis -sound default -message '#{user_command} completed successfully.'")
+        exit 0
       end
       Notis.runit("terminal-notifier -title Notis -message '#{user_command} completed successfully.'")
-
-      # TODO: allow user to specify the message
-      # TODO: ring bell with -b switch
+      exit 0
+      # END MAIN COMMAND BLOCK
       # TODO: handle exit status 1 in original command with appropriate message to user
     end
 
   end #end main
 
-  description "Launch a Mac OSX notification based upon the exit status or standard output of a previous command"
+  description "Launch a Mac OSX notification at the completion of another command.  Include the command to be run as the argument to notis, or pipe the command to the notis standard input stream.  This utility provides the option to mute the standard output from the original command and to emit an audio signal that the command completed along with the notification toast message."
 
   # Switches:
   on("--bell","-b","Provide an audio alert with notification")
