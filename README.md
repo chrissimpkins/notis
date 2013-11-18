@@ -1,5 +1,5 @@
 # Notis
-### Mac OSX Command Line Notifier
+### Mac OSX Command Line Application Notifier
 
 Notis is a Mac OSX utility that allows you to display a standard OSX toast message notification at the completion of another command with the option to emit an audio signal.
 
@@ -20,7 +20,7 @@ Use the command to be tracked as an argument to Notis and enclose it in quotes i
 ```
 notis "longrunner bigfile.baf"
 ```
-When you run notis with this syntax, you will receive a notification that identifies the completed command with up to 20 characters of the original command string.
+When you run Notis with this syntax, you will receive a notification that identifies the completed command with up to 20 characters of the original command string.
 
 ### Pipe Standard Output from Command to Notis
 You can also use Notis by piping the standard output stream of another command to the Notis standard input stream.  Assuming that you are running the command `longrunner bigfile.baf`:
@@ -31,18 +31,26 @@ longrunner bigfile.baf | notis
 
 ## Options
 
-This utility provides the option to mute the standard output from the original command and to emit an audio signal that the command completed along with the notification toast message.
+This utility provides the option to mute the standard output from the original command and to emit an audio signal that the command completed along with the notification toast message.  These options can combined.
 
 ### Mute Standard Output from the Tracked Command (`-m, --mute`)
 
 ```
 notis -m "longrunner bigfile.baf"
 ```
+or
+```
+longrunner bigfile.baf | notis -m
+```
 
 ### Emit Audio Signal as Part of the Notification (`-b, --bell`)
 
 ```
 notis -b "longrunner bigfile.baf"
+```
+or
+```
+longrunner bigfile.baf | notis -b
 ```
 
 
