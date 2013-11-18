@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Notis::VERSION
   spec.authors       = ["Chris Simpkins"]
   spec.email         = ["git.simpkins@gmail.com"]
-  spec.summary       = %q{Launch a Mac OSX notification based upon the exit status or standard output of a previous command}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.description   = %q{notis is a Mac OSX utility that allows you to display a standard OSX toast message notification at the completion of a long-running command with the option to emit an audio signal.}
+  spec.summary       = %q{notis}
   spec.homepage      = "http://rubygems.org/gems/notis"
   spec.license       = "MIT"
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler"
+  spec.add_development_dependency('bundler')
   spec.add_development_dependency "rake"
   spec.add_development_dependency('rdoc')
   spec.add_development_dependency('aruba')
