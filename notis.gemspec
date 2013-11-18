@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["git.simpkins@gmail.com"]
   spec.description   = %q{notis is a Mac OSX utility that allows you to display a standard OSX toast message notification at the completion of a long-running command with the option to emit an audio signal.}
   spec.summary       = %q{notis}
-  spec.homepage      = "http://rubygems.org/gems/notis"
+  spec.homepage      = "https://github.com/chrissimpkins/notis"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
