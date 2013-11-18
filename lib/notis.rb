@@ -8,7 +8,7 @@ module Notis
 		    if status.exitstatus == 0
 		    	return "#{stdout_str}"
 		    else
-		      	STDERR.puts stderr_str
+		      	STDERR.puts stderr_str #if the primary application fails, pass the error message to the user
 		      	exit 1
 		    end
 	  	rescue => e
