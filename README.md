@@ -28,6 +28,7 @@ You can also use notis by piping the standard output stream of another command t
 ```
 longrunner bigfile.baf | notis
 ```
+With the latter syntax, notis displays a generic completion message.
 
 ## Options
 
