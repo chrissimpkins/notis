@@ -49,7 +49,7 @@ class App
 
   end #end main
 
-  description "Launch a Mac OSX notification at the completion of another command.  Include the command to be run as the argument to notis, or pipe the command to the notis standard input stream.  This utility provides the option to mute the standard output from the original command and to emit an audio signal that the command completed along with the notification toast message."
+    description "Launch a Mac OSX notification at the completion of another command.  Include the command to be run as the argument to notis, or pipe the command's standard output to the notis standard input stream.  This utility provides the option to mute the standard output from the original command and to emit an audio signal that the command completed along with the notification toast message.\n\nExamples:\n\n  Run command as argument to notis:\n\tnotis 'curl -L http://bigsite.com'\n\n  Pipe Standard Output to notis:\n\tcurl -L http://bigsite.com | notis"
 
   # Switches:
   on("--bell","-b","Provide an audio alert with notification")
