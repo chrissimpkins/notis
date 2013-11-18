@@ -53,4 +53,3 @@ or
 longrunner bigfile.baf | notis -b
 ```
 
-
